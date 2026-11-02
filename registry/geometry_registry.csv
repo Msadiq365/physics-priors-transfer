@@ -1,0 +1,5 @@
+dataset,bearing_type,n_elements,ball_d_mm,pitch_D_mm,contact_deg,status,source
+CWRU,SKF 6205-2RS,9,7.94,39.04,0,verified,"CWRU bearing information page; multiples BPFO 3.585 / BPFI 5.415 checked against arXiv 1511.03174 Table 2 (frozen study v2.1)"
+PAD,6203 (KB24 FAG example),8,6.75,28.55,0,nominal_prior,"Lessmeier et al. 2016 PHME Table 1 example fact sheet, applied to all bearings (frozen study v2.1)"
+UORED,NSK 6203ZZ / FAFNIR 203KD,8,6.77,28.50,0,to_verify,"Sehri, Dumond and Bouchard 2023 Data in Brief (value reported by literature search; confirm from dataset documentation, both makes)"
+KAIST,NSK 6205 DDU,9,7.90,38.50,0,to_verify,"Jung et al. 2023 Data in Brief (value reported by literature search; confirm from dataset documentation)"

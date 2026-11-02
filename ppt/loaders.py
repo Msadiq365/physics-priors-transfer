@@ -1,0 +1,83 @@
+"""Dataset loaders. Each returns (signal, fs, shaft_hz) for one recording, plus a manifest entry.
+
+Manifest fields: dataset, bearing_id (physical specimen), cls (N/IR/OR), state, condition, path.
+Loaders for the sealed datasets (UORED, KAIST, HUST) are written only after their documentation has
+been read, and must not be run on signals before the protocol is registered.
+"""
+import re
+from pathlib import Path
+
+import numpy as np
+import scipy.io as sio
+
+# ---------------- CWRU (12 kHz drive end) ----------------
+# record numbers per unit at 0, 1, 2, 3 hp (same table as the frozen study's extraction script)
+CWRU_UNITS = {
+    "N":     ("N",  [97, 98, 99, 100]),
+    "IR007": ("IR", [105, 106, 107, 108]), "IR014": ("IR", [169, 170, 171, 172]),
+    "IR021": ("IR", [209, 210, 211, 212]),
+    "OR007": ("OR", [130, 131, 132, 133]), "OR014": ("OR", [197, 198, 199, 200]),
+    "OR021": ("OR", [234, 235, 236, 237]),
+}
+CWRU_RPM_FALLBACK = [1797, 1772, 1750, 1730]
+
+
+def cwru_manifest(root):
+    root = Path(root); out = []
+    files = list(root.rglob("*.mat"))
+    for unit, (cls, recs) in CWRU_UNITS.items():
+        for hp, rec in enumerate(recs):
+            hits = [f for f in files if str(rec) in re.findall(r"(?<!\d)(\d{2,3})(?!\d)", f.stem)]
+            if hits:
+                out.append(dict(dataset="CWRU", bearing_id=f"CWRU_{unit}", cls=cls, state="faulty" if cls != "N" else "healthy",
+                                condition=f"{hp}hp", path=str(sorted(hits)[0]), rpm_fallback=CWRU_RPM_FALLBACK[hp]))
+    return out
+
+
+def load_cwru(entry):
+    m = sio.loadmat(entry["path"])
+    de = [k for k in m if k.endswith("DE_time")][0]
+    rp = [k for k in m if k.endswith("RPM")]
+    rpm = float(m[rp[0]].ravel()[0]) if rp else float(entry["rpm_fallback"])
+    return m[de].ravel().astype(float), 12000.0, rpm / 60.0
+
+
+# ---------------- Paderborn (natural damage subset plus healthy) ----------------
+PAD_CLASSES = {
+    **{b: ("N", "healthy") for b in ["K001", "K002", "K003", "K004", "K005", "K006"]},
+    **{b: ("OR", "real") for b in ["KA04", "KA15", "KA16", "KA22", "KA30"]},
+    **{b: ("IR", "real") for b in ["KI04", "KI14", "KI16", "KI17", "KI18", "KI21"]},
+    **{b: ("OR", "artificial") for b in ["KA01", "KA03", "KA05", "KA06", "KA07", "KA09"]},
+    **{b: ("IR", "artificial") for b in ["KI01", "KI03", "KI05", "KI07", "KI08"]},
+}
+PAD_NOMINAL_RPM = {"N15": 1500.0, "N09": 900.0}
+PAD_RE = re.compile(r"^(N\d\d)_(M\d\d)_(F\d\d)_(K[AIB]?\d\d\d?|K\d\d\d)_(\d+)$")
+
+
+def pad_manifest(root, origins=("healthy", "real")):
+    out = []
+    for f in sorted(Path(root).rglob("*.mat")):
+        m = PAD_RE.match(f.stem)
+        if not m or m.group(4) not in PAD_CLASSES:
+            continue
+        cls, origin = PAD_CLASSES[m.group(4)]
+        if origin not in origins:
+            continue
+        out.append(dict(dataset="PAD", bearing_id=f"PAD_{m.group(4)}", cls=cls,
+                        state="healthy" if cls == "N" else "faulty", origin=origin,
+                        condition="_".join(m.group(1, 2, 3)), rep=int(m.group(5)), path=str(f),
+                        nominal_rpm=PAD_NOMINAL_RPM[m.group(1)]))
+    return out
+
+
+def load_pad(entry):
+    m = sio.loadmat(entry["path"], struct_as_record=False, squeeze_me=True)
+    s = m[[k for k in m if not k.startswith("__")][0]]
+    d = {c.Name: np.asarray(c.Data, float) for c in s.Y}
+    rpm = float(np.mean(d["speed"]))
+    if abs(rpm - entry["nominal_rpm"]) / entry["nominal_rpm"] > 0.01:   # label-blind rule from v2.1
+        raise ValueError(f"speed {rpm:.1f} rpm more than 1% from nominal")
+    return d["vibration_1"], 64000.0, rpm / 60.0
+
+
+LOADERS = {"CWRU": load_cwru, "PAD": load_pad}
