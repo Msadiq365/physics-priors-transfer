@@ -18,3 +18,9 @@
 - KAIST (Jung et al. 2023, Data in Brief 48:109049): fault-seeded bearing in housing A; channels x_A, y_A, x_B, y_B at 25.6 kHz; 3010 rpm (50.17 Hz); normal 120 s, faulty 60 s; one seeded bearing per size (0.3, 1.0, 3.0 mm). Decision before opening: primary channel y_A (vertical, load direction), x_A as sensitivity; speed nominal 50.17 Hz refined by shaft-peak search within +-3%; first 32 s kept.
 - HUST (arXiv 2302.12533 Table 2): geometry per type added to the registry; reproduces published BPFO/BPFI ratios; 'fs' field in each file is the shaft frequency; load codes 0, 200, 400 W; accelerometer vertical.
 - Sealed export received (data/sealed_export.npz, SHA-256 530894752c4d11dc676fd71e05ee7a5dd99cb26071c50b381710ed2bdc58932e): UORED 40 recordings (20 healthy; 5 IR and 5 OR bearings x developing and faulty), KAIST 21 (normal, IR and OR at 3 sizes, 3 loads; 32 s; 4 channels), HUST 45 (N, I, O x 5 types x 3 loads). Only the manifest and array lengths were read. The file stays sealed until registration.
+- Parameter matching: all learned arms within 1% of 10,211 parameters (M1, M2, M7 first width 20; M3 20; M4, M5 16). Note: G1 was run with width 16 for M2 and M3.
+- Dry run (development pairs, 5 seeds, every arm except M6), bearing-level macro-F1 [classes predicted]:
+  CWRU->PAD: C0 0.568 [3]; M1 0.152 [1]; M2 0.250 [2]; M3 0.152 [1]; M4 0.174 [1]; M5 0.174 [1]; M7 0.152 [1].
+  PAD->CWRU: C0 0.517 [2]; M1 0.200 [1]; M2 0.190 [2]; M3 0.222 [2]; M4 0.222 [2] (window 0.476); M5 0.452 [2]; M7 0.467 [2].
+  Time: about 20 s per arm with CWRU as source (fixed epochs), 2.5 to 5 min per arm with Paderborn as source (nested epoch selection). Whole dry run 27 min.
+- Reading (development only, not evidence for any hypothesis): learned arms trained on CWRU collapse onto one class; the train-free C0 transfers in both directions and is the best arm in both. CWRU as target has 7 bearing states, so bearing-level scores move in large steps.

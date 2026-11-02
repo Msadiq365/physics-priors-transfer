@@ -1,0 +1,15 @@
+CWRU->PAD C0: bearing macro-F1 0.568, classes predicted 3
+CWRU->PAD M1: bearing macro-F1 0.152, window 0.155, classes 1, epochs 30, 34s
+CWRU->PAD M2: bearing macro-F1 0.250, window 0.277, classes 2, epochs 30, 19s
+CWRU->PAD M3: bearing macro-F1 0.152, window 0.178, classes 1, epochs 30, 12s
+CWRU->PAD M4: bearing macro-F1 0.174, window 0.184, classes 1, epochs 30, 19s
+CWRU->PAD M5: bearing macro-F1 0.174, window 0.182, classes 1, epochs 30, 20s
+CWRU->PAD M7: bearing macro-F1 0.152, window 0.191, classes 1, epochs 30, 14s
+PAD->CWRU C0: bearing macro-F1 0.517, classes predicted 2
+PAD->CWRU M1: bearing macro-F1 0.200, window 0.189, classes 1, epochs 30, 274s
+PAD->CWRU M2: bearing macro-F1 0.190, window 0.172, classes 2, epochs 60, 298s
+PAD->CWRU M3: bearing macro-F1 0.222, window 0.194, classes 2, epochs 20, 150s
+PAD->CWRU M4: bearing macro-F1 0.222, window 0.476, classes 2, epochs 60, 316s
+PAD->CWRU M5: bearing macro-F1 0.452, window 0.487, classes 2, epochs 25, 268s
+PAD->CWRU M7: bearing macro-F1 0.467, window 0.397, classes 2, epochs 30, 208s
+done in 1632s
