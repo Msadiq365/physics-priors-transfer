@@ -24,3 +24,5 @@
   PAD->CWRU: C0 0.517 [2]; M1 0.200 [1]; M2 0.190 [2]; M3 0.222 [2]; M4 0.222 [2] (window 0.476); M5 0.452 [2]; M7 0.467 [2].
   Time: about 20 s per arm with CWRU as source (fixed epochs), 2.5 to 5 min per arm with Paderborn as source (nested epoch selection). Whole dry run 27 min.
 - Reading (development only, not evidence for any hypothesis): learned arms trained on CWRU collapse onto one class; the train-free C0 transfers in both directions and is the best arm in both. CWRU as target has 7 bearing states, so bearing-level scores move in large steps.
+- Minimum detectable difference (mdd_sim.py, 10 physical bearings, bearing-level paired permutation): for bearing-level macro-F1, power stays below 0.72 at alpha 0.05 (below 0.45 at the strict Holm level 0.0167) even for a true difference of 0.4; the registered rule (MDD above 0.15 -> estimates, not tests) is triggered for macro-F1.
+- Continuous alternative (mean true-class probability per physical bearing, paired): SD of the paired difference between arms 0.22 (CWRU->PAD, 17 bearings) to 0.42 (PAD->CWRU, 7 bearings); MDD for 10 bearings 0.20 at alpha 0.05, 0.23 at 0.0167 (using the 17-bearing estimate).
