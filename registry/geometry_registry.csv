@@ -1,5 +1,10 @@
 dataset,bearing_type,n_elements,ball_d_mm,pitch_D_mm,contact_deg,status,source
-CWRU,SKF 6205-2RS,9,7.94,39.04,0,verified,"CWRU bearing information page; multiples BPFO 3.585 / BPFI 5.415 checked against arXiv 1511.03174 Table 2 (frozen study v2.1)"
+CWRU,SKF 6205-2RS,9,7.94,39.04,0,verified,CWRU bearing information page; multiples BPFO 3.585 / BPFI 5.415 checked against arXiv 1511.03174 Table 2 (frozen study v2.1)
 PAD,6203 (KB24 FAG example),8,6.75,28.55,0,nominal_prior,"Lessmeier et al. 2016 PHME Table 1 example fact sheet, applied to all bearings (frozen study v2.1)"
-UORED,NSK 6203ZZ / FAFNIR 203KD,8,6.77,28.50,0,to_verify,"Sehri, Dumond and Bouchard 2023 Data in Brief (value reported by literature search; confirm from dataset documentation, both makes)"
-KAIST,NSK 6205 DDU,9,7.90,38.50,0,to_verify,"Jung et al. 2023 Data in Brief (value reported by literature search; confirm from dataset documentation)"
+UORED,NSK 6203ZZ / FAFNIR 203KD,8,6.77,28.50,0,verified_catalogue,"Sehri, Dumond and Bouchard 2023 Data in Brief value (ball 6.77 mm, pitch 28.50 mm); consistent with 6203 catalogue bore 17 mm / OD 40 mm (pitch 28.5 mm); two makes (NSK 6203ZZ, FAFNIR 203KD) covered by the +-2% perturbation control"
+KAIST,NSK 6205 DDU,9,7.90,38.50,0,verified_frequency,NSK 6205 DDU; geometry reproduces the published BPFO 179.43 Hz and BPFI 272.07 Hz at 3010 rpm bearing-shaft speed (arXiv 2311.15516 via literature search)
+HUST_6204,KG 6204,8,7.6,33.5,0,verified,"Thuan and Hong, HUST bearing (arXiv 2302.12533 Table 2): bore 20 mm, OD 47 mm, ball 7.6 mm, 8 balls; pitch = mean of bore and OD; reproduces published BPFO/BPFI ratios"
+HUST_6205,KG 6205,9,7.8,38.5,0,verified,"Thuan and Hong, HUST bearing (arXiv 2302.12533 Table 2): bore 25 mm, OD 52 mm, ball 7.8 mm, 9 balls; pitch = mean of bore and OD; reproduces published BPFO/BPFI ratios"
+HUST_6206,KG 6206,9,9.0,46.0,0,verified,"Thuan and Hong, HUST bearing (arXiv 2302.12533 Table 2): bore 30 mm, OD 62 mm, ball 9.0 mm, 9 balls; pitch = mean of bore and OD; reproduces published BPFO/BPFI ratios"
+HUST_6207,KG 6207,9,11.0,53.5,0,verified,"Thuan and Hong, HUST bearing (arXiv 2302.12533 Table 2): bore 35 mm, OD 72 mm, ball 11.0 mm, 9 balls; pitch = mean of bore and OD; reproduces published BPFO/BPFI ratios"
+HUST_6208,KG 6208,9,12.0,60.0,0,verified,"Thuan and Hong, HUST bearing (arXiv 2302.12533 Table 2): bore 40 mm, OD 80 mm, ball 12.0 mm, 9 balls; pitch = mean of bore and OD; reproduces published BPFO/BPFI ratios"
