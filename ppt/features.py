@@ -5,7 +5,7 @@ import json
 import numpy as np
 
 from . import signal as S
-from .loaders import LOADERS, load_dev
+from .loaders import LOADERS, load_dev, load_sealed
 
 CAP = 40
 
@@ -16,7 +16,8 @@ def build_cache(manifest, out_path, cap=CAP):
     rows, ords, hzs, skipped = [], [], [], []
     for e in manifest:
         try:
-            x, fs, shaft_hz = (load_dev(e) if "::" in e["path"] else LOADERS[e["dataset"]](e))
+            x, fs, shaft_hz = ((load_sealed(e) if e["dataset"] in ("UORED", "KAIST", "HUST") else load_dev(e))
+                               if "::" in e["path"] else LOADERS[e["dataset"]](e))
         except ValueError as err:
             skipped.append({"path": e["path"], "reason": str(err)}); continue
         x = S.resample_to_common(x, fs)
@@ -24,7 +25,7 @@ def build_cache(manifest, out_path, cap=CAP):
         for k, st in enumerate(starts):
             so, sh = S.envelope_spectra(x[st:st + n], shaft_hz)
             ords.append(so); hzs.append(sh)
-            rows.append(dict(dataset=e["dataset"], bearing_id=e["bearing_id"], cls=e["cls"], state=e["state"],
+            rows.append(dict(dataset=e["dataset"], geometry=e.get("geometry", e["dataset"]), bearing_id=e["bearing_id"], cls=e["cls"], state=e["state"],
                              condition=e["condition"], path=e["path"], start=int(st), shaft_hz=shaft_hz))
     keep = []
     units = {}

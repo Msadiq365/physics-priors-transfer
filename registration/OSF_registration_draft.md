@@ -41,7 +41,9 @@ Resample to 12 kHz (scipy resample_poly); windows of 40 shaft revolutions; at mo
 spread evenly; band-pass 2.0 to 5.5 kHz (4th-order Butterworth, zero phase); squared Hilbert envelope with mean
 removed; Hann window; FFT amplitude; order grid 0 to 40 orders at 0.025; per-window division by the window's own
 median. Shaft speed: Paderborn and CWRU from the recorded speed; HUST from the file's shaft-frequency field; KAIST
-nominal 50.17 Hz refined by a shaft-peak search within plus or minus 3%; UORED see 9.1.
+nominal 50.17 Hz refined by a shaft-peak search within plus or minus 3%; UORED from the speed stored in the first
+sample of each recording's speed column (read before registration, see DEV_LOG; median 1799 rpm). Geometry is taken
+per recording (HUST has five bearing types).
 
 ## 4. Arms and training (fixed)
 
@@ -60,7 +62,8 @@ Training: Adam, learning rate 1e-3, weight decay 1e-4, batch 64, class-weighted 
 to 1.1, Gaussian noise 0.05, dropout 0.3, one thread per process, 5 seeds; epochs chosen by inner grouped
 cross-validation over source bearings (checkpoints 5 to 60), except CWRU as source (fixed 30). Weights saved.
 Controls: 20 random-centre sets and target geometry perturbed by minus 5, minus 2, plus 2, plus 5% on trained M4;
-label-shuffle M2.
+label-shuffle M2. Reference pools (Paderborn K005 and K006; UORED healthy bearings 11 to 20) are used only by M6
+and are never trained on or scored by any arm. In M4 each window carries its own centres as input.
 
 ## 5. Development results already known (reported in full in the paper)
 
@@ -100,8 +103,9 @@ result is reported as "no detectable difference of the registered size", with it
 ## 7. Gates on the sealed data
 
 G2: C0 IR/OR AUROC at least 0.65 and within-target ceiling at least 0.60, else the target is reported as not
-diagnosable by envelope methods. G3: isolation assertion, checksums, registry check. G4: label-shuffle M2 within
-0.05 of chance.
+diagnosable by envelope methods. G3: isolation assertion, checksums, registry check. G4: label-shuffle M2 at most
+0.05 above the best constant-prediction macro-F1 on that target. G3 also checks that the UORED accelerometer 1x
+shaft peak lies within 2% of the stored speed.
 
 ## 8. Reported regardless of outcome
 
@@ -110,11 +114,9 @@ history; deviations log.
 
 ## 9. To complete before this draft is frozen
 
-1. UORED shaft speed: the speed column comes from a Hall-effect gear-tooth sensor whose pulses per revolution are
-   not documented. Proposed: read the speed column only (it carries no fault information) to find its pulse rate,
-   and confirm it against the nominal speed in Sehri et al. (2023); fall back to the nominal speed refined by a
-   shaft-peak search within plus or minus 3%.
-2. Implement and test on development data: M6, the KAIST speed refinement, loaders for the sealed export, and the
-   perturbation and random-centre controls.
+1. Done: UORED shaft speed (section 3).
+2. Done: M6, the KAIST speed refinement, loaders for the sealed export, per-recording geometry, the reference
+   pools, and the perturbation, random-centre and label-shuffle controls; tested on development data and on a
+   synthetic file in the sealed format (tests/test_pipeline.py).
 3. Supervisor decisions: co-authors; the inferential metric in section 6; the arm for H3.
 4. Final freeze: commit hash, file checksums, software versions (Python 3.13.16, torch 2.14.1, numpy 2.5.3, scipy 1.18.1).

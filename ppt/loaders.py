@@ -125,3 +125,54 @@ def load_dev(entry):
     elif abs(rpm - entry["nominal_rpm"]) / entry["nominal_rpm"] > 0.01:
         raise ValueError(f"speed {rpm:.1f} rpm more than 1% from nominal")
     return x, entry["fs"], rpm / 60.0
+
+
+# ---------------- sealed export (tools/export_sealed_colab.py output; 12 kHz already) ----------------
+KAIST_NOMINAL_HZ = 3010 / 60.0          # Jung et al. 2023: 3010 rpm, shaft 50.17 Hz
+KAIST_CHANNEL = "yA"                     # registered: vertical at housing A (fault-seeded housing); xA as sensitivity
+
+
+def sealed_manifest(npz_path, kaist_channel=KAIST_CHANNEL):
+    z = _npz(npz_path)
+    man = __import__("json").loads(bytes(z["__manifest__"]).decode())
+    out = []
+    for e in man:
+        if e["dataset"] == "UORED":
+            cls = {"H": "N", "I": "IR", "O": "OR"}[e["letter"]]
+            out.append(dict(dataset="UORED", bearing_id=f"UORED_{e['bearing']}", cls=cls, state=e["state"],
+                            condition="1", path=f"{npz_path}::UORED__{e['file']}__acc", fs=12000.0,
+                            speed_key=f"UORED__{e['file']}__speed", geometry="UORED"))
+        elif e["dataset"] == "KAIST":
+            cond = e["condition"]
+            cls = "N" if cond == "Normal" else ("IR" if cond.startswith("BPFI") else "OR")
+            bid = "KAIST_N" if cls == "N" else f"KAIST_{cond}"
+            out.append(dict(dataset="KAIST", bearing_id=bid, cls=cls, state="healthy" if cls == "N" else "faulty",
+                            condition=f"{e['load_nm']}Nm", path=f"{npz_path}::KAIST__{e['file']}__{kaist_channel}",
+                            fs=12000.0, geometry="KAIST"))
+        elif e["dataset"] == "HUST":
+            cls = {"N": "N", "I": "IR", "O": "OR"}[e["letter"]]
+            out.append(dict(dataset="HUST", bearing_id=f"HUST_{e['bearing_type']}_{cls}", cls=cls,
+                            state="healthy" if cls == "N" else "faulty", condition=f"load{e['load_code']}",
+                            path=f"{npz_path}::HUST__{e['file']}__acc", fs=12000.0, shaft_hz=e["shaft_hz"],
+                            geometry=f"HUST_{e['bearing_type']}", bearing_type=e["bearing_type"]))
+    return sorted(out, key=lambda e: e["path"])
+
+
+def refine_shaft_hz(x, fs, nominal_hz, tol=0.03):
+    """Label-blind: the largest spectral peak of the raw signal within +-tol of the nominal shaft frequency."""
+    X = np.abs(np.fft.rfft((x - x.mean()) * np.hanning(len(x))))
+    f = np.fft.rfftfreq(len(x), 1.0 / fs)
+    band = (f >= nominal_hz * (1 - tol)) & (f <= nominal_hz * (1 + tol))
+    return float(f[band][np.argmax(X[band])])
+
+
+def load_sealed(entry):
+    npz_path, key = entry["path"].split("::")
+    z = _npz(npz_path)
+    x = z[key].astype(float)
+    if entry["dataset"] == "UORED":
+        rpm = 3.5 * float(z[entry["speed_key"]].astype(float).sum())   # stored first-sample speed, see DEV_LOG
+        return x, entry["fs"], rpm / 60.0
+    if entry["dataset"] == "KAIST":
+        return x, entry["fs"], refine_shaft_hz(x, entry["fs"], KAIST_NOMINAL_HZ)
+    return x, entry["fs"], float(entry["shaft_hz"])                     # HUST: file's shaft-frequency field
