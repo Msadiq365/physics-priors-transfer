@@ -47,3 +47,7 @@
 - H3 arm fixed a priori as M4 (same physics prior as C0, plus learning). Not chosen from the dry run (M5 0.313 vs M7 0.310 is noise).
 - Dry-run Brier (descriptive, pools excluded): CWRU->PAD C0 0.801 (one-hot 0.96), M4 0.743, M5 0.791, M2 0.796; PAD->CWRU C0 0.298 (one-hot 0.357), M5 0.555, M4 0.657. C0 temperatures 0.317 and 0.134.
 - MDD for the registered endpoint (mdd_brier.py): paired-difference SD median 0.73; 80% power needs about 0.75 Brier units at alpha 0.05, 0.95 at the strict Holm level. Brier is noisier than true-class probability on these data; kept for propriety, the cost stated in the registration.
+
+## 2 Nov 2026 (23:24): OSF
+- Freeze files uploaded by the author to OSF project n8k6c (view-only link received). Awaiting confirmation that a timestamped OSF registration (not only project files) has been submitted; sealed data stay unopened until then.
+- Methodology document updated to match the frozen registration (Brier endpoint, sign-flip test, H3 = M4, MDD 0.75/0.95).
