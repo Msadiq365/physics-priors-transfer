@@ -51,3 +51,7 @@
 ## 2 Nov 2026 (23:24): OSF
 - Freeze files uploaded by the author to OSF project n8k6c (view-only link received). Awaiting confirmation that a timestamped OSF registration (not only project files) has been submitted; sealed data stay unopened until then.
 - Methodology document updated to match the frozen registration (Brier endpoint, sign-flip test, H3 = M4, MDD 0.75/0.95).
+
+## 2 Nov 2026 (23:42): OSF registration submitted
+- The author submitted the OSF registration: https://osf.io/qsh2a (from project n8k6c). OSF pages are not machine-readable from this environment; the registration link and time are recorded as given by the author. Code and data checksums verified unchanged against registration/FREEZE.txt immediately before opening.
+- Sealed data opened from this point.
