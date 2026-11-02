@@ -40,3 +40,10 @@
 - Controls implemented: M4 forward passes with target centres scaled by 0.95, 0.98, 1.02, 1.05 and 20 random sorted centre sets in 1 to 16 orders (seed 7); label-shuffle M2 (labels permuted across physical source bearings, seed 11).
 - Development check, CWRU->PAD, M4, 1 seed: macro-F1 0.259 with true target centres (reproduced exactly by the control path at scale 1.0); every perturbed or random set gives 0.14 (all windows predicted healthy). Learned bump widths are about 0.05 orders, narrower than a 2% shift at the first BPFO harmonic (0.06 orders), so the trained M4 is sharply tied to exact centres. Reading: the perturbation control is sensitive, as intended; development only.
 - Label-shuffle M2 CWRU->PAD (5 seeds): 0.167. Constant all-healthy prediction on that target: 0.14. G4 definition made explicit for registration: label-shuffle score at most 0.05 above the best constant-prediction macro-F1 on the target.
+
+## 2 Nov 2026 (night): supervisor decisions and freeze
+- Supervisor: proceed; sole author; inferential metric and H3 arm delegated to the author.
+- After a literature review: primary endpoint = per-physical-bearing multiclass Brier score (strictly proper; mean true-class probability is improper), exact two-sided sign-flip test over 1,024 sign patterns, Holm over H1 to H3. C0 made probabilistic by softmax of log(threshold, P_I, P_O) with one temperature fitted leave-one-source-bearing-out on source only; decisions unchanged (asserted in code).
+- H3 arm fixed a priori as M4 (same physics prior as C0, plus learning). Not chosen from the dry run (M5 0.313 vs M7 0.310 is noise).
+- Dry-run Brier (descriptive, pools excluded): CWRU->PAD C0 0.801 (one-hot 0.96), M4 0.743, M5 0.791, M2 0.796; PAD->CWRU C0 0.298 (one-hot 0.357), M5 0.555, M4 0.657. C0 temperatures 0.317 and 0.134.
+- MDD for the registered endpoint (mdd_brier.py): paired-difference SD median 0.73; 80% power needs about 0.75 Brier units at alpha 0.05, 0.95 at the strict Holm level. Brier is noisier than true-class probability on these data; kept for propriety, the cost stated in the registration.

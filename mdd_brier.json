@@ -1,0 +1,29 @@
+{
+ "sd_median": 0.7331561258404395,
+ "sd_range": [
+  0.047914332456617977,
+  1.603382541269797
+ ],
+ "rows": [
+  {
+   "generator": "normal",
+   "alpha": 0.05,
+   "mdd_80": 0.75
+  },
+  {
+   "generator": "normal",
+   "alpha": 0.0167,
+   "mdd_80": 0.95
+  },
+  {
+   "generator": "empirical",
+   "alpha": 0.05,
+   "mdd_80": 0.75
+  },
+  {
+   "generator": "empirical",
+   "alpha": 0.0167,
+   "mdd_80": 0.95
+  }
+ ]
+}

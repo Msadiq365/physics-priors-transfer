@@ -15,6 +15,7 @@ import torch.nn.functional as F
 from . import arms as A
 from . import baseline as B
 from . import model as Mo
+from . import stats as S
 from .geometry import orders_for
 from .isolation import assert_isolated, grouped_folds
 
@@ -138,6 +139,7 @@ def run(arm, cache, src_ds, tgt_ds, out_dir, src_filter=None, tgt_filter=None, s
                bearing_macro_f1=B.macro_f1(yt, yp),
                window_macro_f1=B.macro_f1(np.array([B.CLASSES.index(m["cls"]) for m in tmeta]), P.argmax(1)),
                true_class_prob=true_class_prob_by_bearing(tmeta, P),
+               brier=S.bearing_brier(tmeta, P),
                n_classes_predicted=int(len(set(yp.tolist()))),
                units=[(k[0], k[1], k[2], B.CLASSES[p]) for k, p in zip(keys, yp)])
     if controls and arm == "M4":
@@ -184,10 +186,15 @@ def run_c0(cache, src_ds, tgt_ds, src_filter=None, tgt_filter=None):
             o = geo(meta[i]); a, b = B.scores(X[i:i + 1], o["BPFO"], o["BPFI"]); po[j], pi[j] = a[0], b[0]
         return po, pi
     po, pi = sc(si); tau = B.fit_threshold(po, pi, ys)
+    T = B.fit_temperature(po, pi, ys, [meta[i]["bearing_id"] for i in si])
     qo, qi = sc(ti); pred = B.predict(qo, qi, tau)
+    Psoft = B.soft(qo, qi, tau, T)
+    assert np.array_equal(Psoft.argmax(1), pred), "soft C0 must keep every C0 decision"
     tmeta = [meta[i] for i in ti]
     keys, yt, prob = unit_scores(tmeta, np.eye(3)[pred]); yp = prob.argmax(1)
-    return dict(arm="C0", source=src_ds, target=tgt_ds, tau=tau, bearing_macro_f1=B.macro_f1(yt, yp),
+    return dict(arm="C0", source=src_ds, target=tgt_ds, tau=tau, temperature=T, bearing_macro_f1=B.macro_f1(yt, yp),
+                brier=S.bearing_brier(tmeta, Psoft), brier_onehot=S.bearing_brier(tmeta, np.eye(3)[pred]),
+                window_P=Psoft.tolist(),
                 true_class_prob=true_class_prob_by_bearing(tmeta, np.eye(3)[pred]),
                 n_classes_predicted=int(len(set(yp.tolist()))),
                 units=[(k[0], k[1], k[2], B.CLASSES[p]) for k, p in zip(keys, yp)])
