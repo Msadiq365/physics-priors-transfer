@@ -69,3 +69,9 @@
 - This changes ppt/loaders.py after the freeze; the change is a reported deviation, to be stated in the paper and added to the OSF registration as an update.
 - 3 Nov 00:15: bug fix in choose_epochs: inner folds with no held-out windows are skipped (they occur with few source bearings, UORED and KAIST); no effect on Paderborn or CWRU as source. Runner restarted.
 - 3 Nov 00:25: second fix: grouped_folds assigned a bearing with both a healthy and a faulty state (UORED) to up to two folds; it now assigns each physical bearing once, stratified by its fault class (unchanged for Paderborn, CWRU, KAIST, HUST, where every bearing id has one class). If no inner fold is usable, epochs fall back to the fixed 30 used for a CWRU source. Gates and runner restarted; the PAD->UORED C0 result is unaffected (no training).
+
+## 3 Nov 2026 (00:45): gates G2 and G3 on the opened data (results/gates.json)
+- G3: sealed checksum OK; registry recomputation matches all nine geometry rows; UORED speed check failed with the stored value and led to Deviation 1 (above).
+- G2 (C0 IR/OR AUROC; within-target M2 ceiling): UORED 0.747 / 0.540 FAIL (ceiling); KAIST 0.792 / 0.833 PASS; HUST 0.840 / 0.519 FAIL (ceiling); Paderborn 0.900 / 0.634 PASS; CWRU 0.750 / 0.833 PASS.
+- Registered consequence: UORED and HUST are reported as not reaching the within-target ceiling of 0.60, and leave any pooled analysis. The confirmatory tests on Paderborn -> UORED are still run and reported as registered (the registration does not cancel them), with this gate result stated beside them.
+- 3 Nov 01:10: confirmatory analysis (results/analysis_main.json): H1 d=-0.181 [-0.36, 0.014] p=0.057 Holm 0.170; H2 d=-0.047 p=0.295 Holm 0.295; H3 d=+0.270 [-0.046, 0.531] p=0.080 Holm 0.170. None rejected. Sensitivity H3: C0 one-hot p=0.037 (unadjusted); correctness sign test p=1.0 (1 vs 0 discordant). G4 label shuffle 0.178 <= 0.222+0.05 PASS. Descriptive reference: a uniform forecast has Brier 0.667.

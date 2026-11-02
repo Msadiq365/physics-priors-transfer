@@ -95,19 +95,8 @@ true
 ]
 }
 }
-Traceback (most recent call last):
-  File "/home/claude/physics-priors-transfer/gates.py", line 55, in <module>
-    a = c0_auroc(ds); cl = ceiling(ds); au = (a['IR'] + a['OR']) / 2
-                           ~~~~~~~^^^^
-  File "/home/claude/physics-priors-transfer/gates.py", line 46, in ceiling
-    E = 30 if fixed else T.choose_epochs('M2', R[tr], y[tr], mtr, ds)
-                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/claude/physics-priors-transfer/ppt/transfer.py", line 116, in choose_epochs
-    return max(CHK, key=lambda e: (score(e), -e))
-  File "/home/claude/physics-priors-transfer/ppt/transfer.py", line 116, in <lambda>
-    return max(CHK, key=lambda e: (score(e), -e))
-                                   ~~~~~^^^
-  File "/home/claude/physics-priors-transfer/ppt/transfer.py", line 115, in <lambda>
-    score = lambda e: B.macro_f1(np.concatenate([a[0] for a in acc[e]]), np.concatenate([a[1] for a in acc[e]]))
-                                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
-ValueError: need at least one array to concatenate
+UORED {'c0_auroc_IR': 0.893, 'c0_auroc_OR': 0.6, 'c0_auroc': 0.747, 'ceiling': {'score': 0.54, 'metric': 'macro-F1', 'epochs': [50, 40, 50], 'units_scored': 20}, 'pass_': False} (133s)
+KAIST {'c0_auroc_IR': 1.0, 'c0_auroc_OR': 0.583, 'c0_auroc': 0.792, 'ceiling': {'score': 0.833, 'metric': 'mean IR/OR recall', 'epochs': [30, 30, 30], 'units_scored': 6}, 'pass_': True} (176s)
+HUST {'c0_auroc_IR': 0.92, 'c0_auroc_OR': 0.76, 'c0_auroc': 0.84, 'ceiling': {'score': 0.519, 'metric': 'macro-F1', 'epochs': [30, 60, 25], 'units_scored': 15}, 'pass_': False} (389s)
+PAD {'c0_auroc_IR': 1.0, 'c0_auroc_OR': 0.8, 'c0_auroc': 0.9, 'ceiling': {'score': 0.634, 'metric': 'macro-F1', 'epochs': [10, 30, 40], 'units_scored': 15}, 'pass_': True} (902s)
+CWRU {'c0_auroc_IR': 0.833, 'c0_auroc_OR': 0.667, 'c0_auroc': 0.75, 'ceiling': {'score': 0.833, 'metric': 'mean IR/OR recall', 'epochs': [30, 30, 30], 'units_scored': 6}, 'pass_': True} (941s)
