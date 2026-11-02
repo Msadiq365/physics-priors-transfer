@@ -81,3 +81,47 @@ def load_pad(entry):
 
 
 LOADERS = {"CWRU": load_cwru, "PAD": load_pad}
+
+
+# ---------------- development raw export (tools/export_raw_subset.py output) ----------------
+_NPZ = {}
+
+
+def _npz(path):
+    if path not in _NPZ:
+        _NPZ[path] = np.load(path)
+    return _NPZ[path]
+
+
+def dev_manifest(npz_path):
+    """Manifest for the exported development file: CWRU 28 records, Paderborn 17 bearings."""
+    z = _npz(npz_path); out = []
+    rec_unit = {rec: (unit, cls, hp) for unit, (cls, recs) in CWRU_UNITS.items() for hp, rec in enumerate(recs)}
+    for k in z.files:
+        if not k.endswith("__sig"):
+            continue
+        ds, name, _ = k.split("__")
+        if ds == "CWRU":
+            unit, cls, hp = rec_unit[int(name)]
+            out.append(dict(dataset="CWRU", bearing_id=f"CWRU_{unit}", cls=cls, state="faulty" if cls != "N" else "healthy",
+                            condition=f"{hp}hp", path=f"{npz_path}::{k}", rpm_fallback=CWRU_RPM_FALLBACK[hp], fs=12000.0))
+        else:
+            m = PAD_RE.match(name)
+            cls, origin = PAD_CLASSES[m.group(4)]
+            out.append(dict(dataset="PAD", bearing_id=f"PAD_{m.group(4)}", cls=cls, state="healthy" if cls == "N" else "faulty",
+                            origin=origin, condition="_".join(m.group(1, 2, 3)), rep=int(m.group(5)), path=f"{npz_path}::{k}",
+                            nominal_rpm=PAD_NOMINAL_RPM[m.group(1)], fs=64000.0))
+    return sorted(out, key=lambda e: e["path"])
+
+
+def load_dev(entry):
+    npz_path, key = entry["path"].split("::")
+    z = _npz(npz_path)
+    x = z[key].astype(float)
+    rpm = float(z[key.replace("__sig", "__rpm")])
+    if entry["dataset"] == "CWRU":
+        if not np.isfinite(rpm):
+            rpm = float(entry["rpm_fallback"])
+    elif abs(rpm - entry["nominal_rpm"]) / entry["nominal_rpm"] > 0.01:
+        raise ValueError(f"speed {rpm:.1f} rpm more than 1% from nominal")
+    return x, entry["fs"], rpm / 60.0

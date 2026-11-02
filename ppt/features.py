@@ -5,7 +5,7 @@ import json
 import numpy as np
 
 from . import signal as S
-from .loaders import LOADERS
+from .loaders import LOADERS, load_dev
 
 CAP = 40
 
@@ -16,7 +16,7 @@ def build_cache(manifest, out_path, cap=CAP):
     rows, ords, hzs, skipped = [], [], [], []
     for e in manifest:
         try:
-            x, fs, shaft_hz = LOADERS[e["dataset"]](e)
+            x, fs, shaft_hz = (load_dev(e) if "::" in e["path"] else LOADERS[e["dataset"]](e))
         except ValueError as err:
             skipped.append({"path": e["path"], "reason": str(err)}); continue
         x = S.resample_to_common(x, fs)
