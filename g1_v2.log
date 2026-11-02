@@ -1,0 +1,9 @@
+PAD M2: 0.633 FAIL epochs [60, 25, 60] (461s)
+PAD M3: 0.812 PASS epochs [40, 60, 40] (769s)
+/usr/local/lib/python3.13/dist-packages/numpy/_core/fromnumeric.py:3862: RuntimeWarning: Mean of empty slice
+  return _methods._mean(a, axis=axis, dtype=dtype,
+/usr/local/lib/python3.13/dist-packages/numpy/_core/_methods.py:142: RuntimeWarning: invalid value encountered in scalar divide
+  ret = ret.dtype.type(ret / rcount)
+CWRU M2: 0.167 FAIL epochs [5, 5, 5] (942s)
+CWRU M3: 0.167 FAIL epochs [5, 5, 5] (1052s)
+done
