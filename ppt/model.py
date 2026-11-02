@@ -9,19 +9,21 @@ import torch.nn.functional as F
 torch.set_num_threads(int(os.environ.get("TRAIN_THREADS", "1")))   # fixed: thread count changes results
 LR, WD, BATCH = 1e-3, 1e-4, 64
 AMP_JIT, NOISE = (0.9, 1.1), 0.05
+DROPOUT = float(os.environ.get("DROPOUT", "0.3"))   # dev change 2 Nov 2026 (G1 recipe)
 
 
 class Net(nn.Module):
-    def __init__(self, in_ch, c1=16, n_cls=3):
+    def __init__(self, in_ch, c1=16, n_cls=3, dropout=DROPOUT):
         super().__init__()
         self.body = nn.Sequential(
             nn.Conv1d(in_ch, c1, 9, padding=4), nn.BatchNorm1d(c1), nn.ReLU(), nn.MaxPool1d(4),
             nn.Conv1d(c1, 32, 7, padding=3), nn.BatchNorm1d(32), nn.ReLU(), nn.MaxPool1d(4),
             nn.Conv1d(32, 32, 5, padding=2), nn.BatchNorm1d(32), nn.ReLU(), nn.AdaptiveAvgPool1d(1))
+        self.drop = nn.Dropout(dropout)
         self.fc = nn.Linear(32, n_cls)
 
     def forward(self, x):
-        return self.fc(self.body(x).squeeze(-1))
+        return self.fc(self.drop(self.body(x).squeeze(-1)))
 
 
 def n_params(m):

@@ -1,0 +1,5 @@
+PAD M2: 0.708 PASS epochs [50, 50, 10] (494s)
+PAD M3: 0.731 PASS epochs [60, 30, 60] (829s)
+CWRU M2: 0.833 PASS epochs [30, 30, 30] (867s)
+CWRU M3: 0.667 FAIL epochs [30, 30, 30] (892s)
+done
