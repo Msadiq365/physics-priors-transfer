@@ -1,3 +1,4 @@
+import os
 """Dataset loaders. Each returns (signal, fs, shaft_hz) for one recording, plus a manifest entry.
 
 Manifest fields: dataset, bearing_id (physical specimen), cls (N/IR/OR), state, condition, path.
@@ -129,7 +130,9 @@ def load_dev(entry):
 
 # ---------------- sealed export (tools/export_sealed_colab.py output; 12 kHz already) ----------------
 KAIST_NOMINAL_HZ = 3010 / 60.0          # Jung et al. 2023: 3010 rpm, shaft 50.17 Hz
-KAIST_CHANNEL = "yA"                     # registered: vertical at housing A (fault-seeded housing); xA as sensitivity
+KAIST_CHANNEL = "yA"
+UORED_NOMINAL_HZ = 30.0                 # 1800 rpm nominal
+UORED_FALLBACK_HZ = 29.70                     # registered: vertical at housing A (fault-seeded housing); xA as sensitivity
 
 
 def sealed_manifest(npz_path, kaist_channel=KAIST_CHANNEL):
@@ -171,8 +174,16 @@ def load_sealed(entry):
     z = _npz(npz_path)
     x = z[key].astype(float)
     if entry["dataset"] == "UORED":
-        rpm = 3.5 * float(z[entry["speed_key"]].astype(float).sum())   # stored first-sample speed, see DEV_LOG
-        return x, entry["fs"], rpm / 60.0
+        if os.environ.get("UORED_SPEED") == "stored":                    # registered source; failed G3 (sensitivity only)
+            rpm = 3.5 * float(z[entry["speed_key"]].astype(float).sum())
+            return x, entry["fs"], rpm / 60.0
+        # Deviation 1 (DEV_LOG, 2 Nov 2026): the stored value failed G3; the KAIST rule is used instead:
+        # largest raw-spectrum peak within +-3% of nominal 30 Hz; a peak on the band edge (no interior maximum)
+        # falls back to the median of the interior estimates over all UORED recordings (29.70 Hz). Label-blind.
+        est = refine_shaft_hz(x, entry["fs"], UORED_NOMINAL_HZ)
+        if min(abs(est - UORED_NOMINAL_HZ * 0.97), abs(est - UORED_NOMINAL_HZ * 1.03)) < 0.15:
+            est = UORED_FALLBACK_HZ
+        return x, entry["fs"], est
     if entry["dataset"] == "KAIST":
         return x, entry["fs"], refine_shaft_hz(x, entry["fs"], KAIST_NOMINAL_HZ)
     return x, entry["fs"], float(entry["shaft_hz"])                     # HUST: file's shaft-frequency field

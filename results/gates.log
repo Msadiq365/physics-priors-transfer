@@ -1,0 +1,97 @@
+G3 {
+"sealed_sha_ok": true,
+"registry": {
+"CWRU": [
+3.585,
+5.415,
+true
+],
+"PAD": [
+3.054,
+4.946,
+true
+],
+"UORED": [
+3.05,
+4.95,
+true
+],
+"KAIST": [
+3.577,
+5.423,
+true
+],
+"HUST_6204": [
+3.093,
+4.907,
+true
+],
+"HUST_6205": [
+3.588,
+5.412,
+true
+],
+"HUST_6206": [
+3.62,
+5.38,
+true
+],
+"HUST_6207": [
+3.575,
+5.425,
+true
+],
+"HUST_6208": [
+3.6,
+5.4,
+true
+]
+},
+"uored_speed": {
+"n": 40,
+"n_within_2pct": 21,
+"worst": [
+{
+"rec": "UORED__H_8_0__acc",
+"stored_hz": 32.488,
+"peak_hz": 29.8,
+"rel": 0.0827
+},
+{
+"rec": "UORED__O_8_1__acc",
+"stored_hz": 32.488,
+"peak_hz": 29.8,
+"rel": 0.0827
+},
+{
+"rec": "UORED__O_8_2__acc",
+"stored_hz": 32.438,
+"peak_hz": 29.8,
+"rel": 0.0813
+},
+{
+"rec": "UORED__H_18_0__acc",
+"stored_hz": 29.686,
+"peak_hz": 31.5,
+"rel": 0.0611
+},
+{
+"rec": "UORED__H_7_0__acc",
+"stored_hz": 31.354,
+"peak_hz": 29.7,
+"rel": 0.0528
+}
+]
+}
+}
+Traceback (most recent call last):
+  File "/home/claude/physics-priors-transfer/gates.py", line 55, in <module>
+    a = c0_auroc(ds); cl = ceiling(ds); au = (a['IR'] + a['OR']) / 2
+                           ~~~~~~~^^^^
+  File "/home/claude/physics-priors-transfer/gates.py", line 46, in ceiling
+    E = 30 if fixed else T.choose_epochs('M2', R[tr], y[tr], mtr, ds)
+                         ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/claude/physics-priors-transfer/ppt/transfer.py", line 112, in choose_epochs
+    acc[e].append((yt, prob.argmax(1)))
+                       ~~~~~~~~~~~^^^
+numpy.exceptions.AxisError: axis 1 is out of bounds for array of dimension 1

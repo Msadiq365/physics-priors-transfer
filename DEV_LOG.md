@@ -55,3 +55,15 @@
 ## 2 Nov 2026 (23:42): OSF registration submitted
 - The author submitted the OSF registration: https://osf.io/qsh2a (from project n8k6c). OSF pages are not machine-readable from this environment; the registration link and time are recorded as given by the author. Code and data checksums verified unchanged against registration/FREEZE.txt immediately before opening.
 - Sealed data opened from this point.
+
+## 2 Nov 2026 (23:50): operational definitions fixed before any sealed result is computed
+- G2 AUROC: per target bearing-state unit, C0 inner-race score = mean over windows of log P_I, outer-race score = mean of log P_O; AUROC of IR vs rest (P_I) and OR vs rest (P_O), averaged. Threshold-free, so no source information enters.
+- G2 ceiling: within-target leave-bearings-out M2 exactly as gate G1 version 3 (outer grouped 3 folds, nested epoch selection; fixed 30 epochs where only one healthy bearing exists, scored then as mean IR/OR recall since the healthy bearing never leaves training).
+- G3 speed check (UORED): the largest peak of the raw accelerometer spectrum within +-10% of the stored speed must lie within 2% of it.
+- Pairs: as the methodology table (12 directed pairs). M6 only where both source and target have a healthy-reference pool (Paderborn and UORED). M4 runs with its centre controls on every pair. G4 label-shuffle M2 on the confirmatory pair.
+
+## 3 Nov 2026 (00:05): Gate G3 failure and Deviation 1 (UORED shaft speed)
+- G3 speed check failed: only 21 of 40 UORED recordings have their accelerometer 1x peak within 2% of the stored speed. The stored value is identical across all states of a bearing (for example 30.34 Hz for H_1_0, I_1_1, I_1_2) and reaches 32.5 to 36.5 Hz on bearings 7 and 8, above the 30 Hz synchronous speed of a 60 Hz four-pole motor; the accelerometer shows a strong peak at 29.5 to 29.8 Hz in 36 of 40 recordings, with its second harmonic at 1.97 to 2.02 times. Reading: the first-sample value is a per-bearing setting or note, not the measured speed during the recording.
+- Correction (registered rule "stop and correct"): UORED speed now uses the same label-blind rule registered for KAIST: largest raw-spectrum peak within +-3% of nominal (1800 rpm, 30 Hz); a peak on the band edge falls back to the median interior estimate (29.70 Hz). Result: 29.5 to 30.7 Hz; scored bearings 1 to 10 all 29.5 to 29.8 Hz. Only spectra below 45 Hz and no labels were used to decide this.
+- Sensitivity: the confirmatory pair is also run with the registered stored speed (UORED_SPEED=stored), reported beside the main result.
+- This changes ppt/loaders.py after the freeze; the change is a reported deviation, to be stated in the paper and added to the OSF registration as an update.
