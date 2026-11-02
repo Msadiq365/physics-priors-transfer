@@ -14,8 +14,13 @@ def grouped_folds(meta, n_folds=3, seed=0):
     """Folds over physical bearings, stratified by class: each fold holds out whole bearings of every class."""
     import numpy as np
     rng = np.random.default_rng(seed)
+    cls_of = {}
+    for m in meta:                       # a bearing with healthy and faulty states is stratified by its fault class
+        b, c = m["bearing_id"], m["cls"]
+        if b not in cls_of or cls_of[b] == "N":
+            cls_of[b] = c
     by_cls = {}
-    for b, c in {(m["bearing_id"], m["cls"]) for m in meta}:
+    for b, c in cls_of.items():
         by_cls.setdefault(c, []).append(b)
     folds = [set() for _ in range(n_folds)]
     for c, bs in sorted(by_cls.items()):

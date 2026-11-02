@@ -106,10 +106,14 @@ def choose_epochs(arm, R, y, meta, src_ds):
     acc = {e: [] for e in CHK}
     for f in folds:
         te = np.array([m["bearing_id"] in f for m in meta]); tr = ~te
+        if not te.any() or not tr.any():
+            continue                      # an empty inner fold (few bearings) carries no information
         per_seed = [_fit(arm, R[tr], y[tr], s, max(CHK), CHK, R[te])[1] for s in SEEDS]
         for e in CHK:
             _, yt, prob = unit_scores([m for m, t in zip(meta, te) if t], np.mean([cv[e] for cv in per_seed], axis=0))
             acc[e].append((yt, prob.argmax(1)))
+    if not acc[CHK[0]]:
+        return CWRU_FIXED_EPOCHS          # no usable inner fold: same fixed rule as a CWRU source
     score = lambda e: B.macro_f1(np.concatenate([a[0] for a in acc[e]]), np.concatenate([a[1] for a in acc[e]]))
     return max(CHK, key=lambda e: (score(e), -e))
 

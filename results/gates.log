@@ -49,37 +49,48 @@ true
 },
 "uored_speed": {
 "n": 40,
-"n_within_2pct": 21,
+"n_within_2pct": 39,
+"stored_n_within_2pct": 21,
 "worst": [
 {
-"rec": "UORED__H_8_0__acc",
-"stored_hz": 32.488,
-"peak_hz": 29.8,
-"rel": 0.0827
-},
-{
-"rec": "UORED__O_8_1__acc",
-"stored_hz": 32.488,
-"peak_hz": 29.8,
-"rel": 0.0827
-},
-{
-"rec": "UORED__O_8_2__acc",
-"stored_hz": 32.438,
-"peak_hz": 29.8,
-"rel": 0.0813
-},
-{
 "rec": "UORED__H_18_0__acc",
+"used_hz": 29.7,
 "stored_hz": 29.686,
+"stored_rel": 0.0611,
 "peak_hz": 31.5,
-"rel": 0.0611
+"rel": 0.0606
 },
 {
-"rec": "UORED__H_7_0__acc",
-"stored_hz": 31.354,
+"rec": "UORED__H_10_0__acc",
+"used_hz": 29.7,
+"stored_hz": 29.953,
+"stored_rel": 0.0085,
 "peak_hz": 29.7,
-"rel": 0.0528
+"rel": 0.0
+},
+{
+"rec": "UORED__H_11_0__acc",
+"used_hz": 29.7,
+"stored_hz": 28.502,
+"stored_rel": 0.042,
+"peak_hz": 29.7,
+"rel": 0.0
+},
+{
+"rec": "UORED__H_12_0__acc",
+"used_hz": 29.7,
+"stored_hz": 28.686,
+"stored_rel": 0.0354,
+"peak_hz": 29.7,
+"rel": 0.0
+},
+{
+"rec": "UORED__H_13_0__acc",
+"used_hz": 29.7,
+"stored_hz": 28.769,
+"stored_rel": 0.0324,
+"peak_hz": 29.7,
+"rel": 0.0
 }
 ]
 }
@@ -91,7 +102,12 @@ Traceback (most recent call last):
   File "/home/claude/physics-priors-transfer/gates.py", line 46, in ceiling
     E = 30 if fixed else T.choose_epochs('M2', R[tr], y[tr], mtr, ds)
                          ~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/claude/physics-priors-transfer/ppt/transfer.py", line 112, in choose_epochs
-    acc[e].append((yt, prob.argmax(1)))
-                       ~~~~~~~~~~~^^^
-numpy.exceptions.AxisError: axis 1 is out of bounds for array of dimension 1
+  File "/home/claude/physics-priors-transfer/ppt/transfer.py", line 116, in choose_epochs
+    return max(CHK, key=lambda e: (score(e), -e))
+  File "/home/claude/physics-priors-transfer/ppt/transfer.py", line 116, in <lambda>
+    return max(CHK, key=lambda e: (score(e), -e))
+                                   ~~~~~^^^
+  File "/home/claude/physics-priors-transfer/ppt/transfer.py", line 115, in <lambda>
+    score = lambda e: B.macro_f1(np.concatenate([a[0] for a in acc[e]]), np.concatenate([a[1] for a in acc[e]]))
+                                 ~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^
+ValueError: need at least one array to concatenate
