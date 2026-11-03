@@ -47,6 +47,8 @@ def healthy_reference(meta, X, dataset):
 
 def _inputs(arm, cache, idx, ds, **kw):
     meta, X, H = cache["meta"], cache["order"], cache["hz"]
+    if arm == "WDCNN":
+        return cache["raw"][idx]
     Xs = X[idx]
     if arm == "M6":
         Xs = Xs / (healthy_reference(meta, X, ds)[None, :] + 1e-12)
@@ -54,7 +56,11 @@ def _inputs(arm, cache, idx, ds, **kw):
 
 
 def _fit(arm, R, y, seed, epochs, checkpoints=(), R_val=None):
-    net = A.build(arm, None, seed=seed) if arm != "M4" else A.build(arm, {"BPFO": 1.0, "BPFI": 1.0}, seed=seed)
+    if arm == "WDCNN":
+        from .wdcnn import WDCNN
+        torch.manual_seed(seed); net = WDCNN()
+    else:
+        net = A.build(arm, None, seed=seed) if arm != "M4" else A.build(arm, {"BPFO": 1.0, "BPFI": 1.0}, seed=seed)
     torch.manual_seed(seed); rng = np.random.default_rng(seed)
     opt = torch.optim.Adam(net.parameters(), lr=Mo.LR, weight_decay=Mo.WD)
     c = np.bincount(y, minlength=3)

@@ -224,6 +224,11 @@
     "macro_f1": 0.383,
     "brier": 0.503,
     "classes": 2
+   },
+   "WDCNN": {
+    "macro_f1": 0.2,
+    "brier": 0.898,
+    "classes": 1
    }
   },
   "CWRU2PAD": {
@@ -272,6 +277,11 @@
     "macro_f1": 0.167,
     "brier": 0.93,
     "classes": 1
+   },
+   "WDCNN": {
+    "macro_f1": 0.367,
+    "brier": 0.808,
+    "classes": 2
    }
   },
   "CWRU2UORED": {
@@ -319,6 +329,11 @@
    "M7": {
     "macro_f1": 0.111,
     "brier": 1.091,
+    "classes": 2
+   },
+   "WDCNN": {
+    "macro_f1": 0.254,
+    "brier": 1.052,
     "classes": 2
    }
   },
@@ -368,6 +383,11 @@
     "macro_f1": 0.556,
     "brier": 0.801,
     "classes": 2
+   },
+   "WDCNN": {
+    "macro_f1": 0.556,
+    "brier": 0.291,
+    "classes": 2
    }
   },
   "HUST_LOTO_6205": {
@@ -416,6 +436,11 @@
     "macro_f1": 0.556,
     "brier": 0.548,
     "classes": 2
+   },
+   "WDCNN": {
+    "macro_f1": 1.0,
+    "brier": 0.094,
+    "classes": 3
    }
   },
   "HUST_LOTO_6206": {
@@ -463,6 +488,11 @@
    "M7": {
     "macro_f1": 0.556,
     "brier": 0.434,
+    "classes": 2
+   },
+   "WDCNN": {
+    "macro_f1": 0.556,
+    "brier": 0.479,
     "classes": 2
    }
   },
@@ -512,6 +542,11 @@
     "macro_f1": 0.167,
     "brier": 0.669,
     "classes": 1
+   },
+   "WDCNN": {
+    "macro_f1": 0.556,
+    "brier": 0.446,
+    "classes": 2
    }
   },
   "HUST_LOTO_6208": {
@@ -559,6 +594,11 @@
    "M7": {
     "macro_f1": 0.556,
     "brier": 0.345,
+    "classes": 2
+   },
+   "WDCNN": {
+    "macro_f1": 0.222,
+    "brier": 0.545,
     "classes": 2
    }
   },
@@ -608,6 +648,11 @@
     "macro_f1": 0.317,
     "brier": 0.872,
     "classes": 3
+   },
+   "WDCNN": {
+    "macro_f1": 0.578,
+    "brier": 0.509,
+    "classes": 3
    }
   },
   "KAIST2PAD": {
@@ -656,6 +701,11 @@
     "macro_f1": 0.14,
     "brier": 1.302,
     "classes": 1
+   },
+   "WDCNN": {
+    "macro_f1": 0.231,
+    "brier": 0.739,
+    "classes": 2
    }
   },
   "KAIST2UORED": {
@@ -704,6 +754,11 @@
     "macro_f1": 0.222,
     "brier": 0.851,
     "classes": 1
+   },
+   "WDCNN": {
+    "macro_f1": 0.439,
+    "brier": 0.721,
+    "classes": 3
    }
   },
   "PAD2CWRU": {
@@ -751,6 +806,11 @@
    "M7": {
     "macro_f1": 0.452,
     "brier": 0.84,
+    "classes": 2
+   },
+   "WDCNN": {
+    "macro_f1": 0.389,
+    "brier": 0.741,
     "classes": 2
    }
   },
@@ -800,6 +860,11 @@
     "macro_f1": 0.167,
     "brier": 0.894,
     "classes": 2
+   },
+   "WDCNN": {
+    "macro_f1": 0.083,
+    "brier": 1.312,
+    "classes": 1
    }
   },
   "PAD2UORED": {
@@ -856,6 +921,11 @@
    },
    "SHUFFLE_M2": {
     "macro_f1": 0.178
+   },
+   "WDCNN": {
+    "macro_f1": 0.307,
+    "brier": 0.774,
+    "classes": 3
    }
   },
   "UORED2CWRU": {
@@ -903,6 +973,11 @@
    "M7": {
     "macro_f1": 0.389,
     "brier": 0.85,
+    "classes": 2
+   },
+   "WDCNN": {
+    "macro_f1": 0.356,
+    "brier": 0.933,
     "classes": 2
    }
   },
@@ -952,6 +1027,11 @@
     "macro_f1": 0.244,
     "brier": 0.79,
     "classes": 2
+   },
+   "WDCNN": {
+    "macro_f1": 0.083,
+    "brier": 1.325,
+    "classes": 1
    }
   },
   "UORED2PAD": {
@@ -1005,6 +1085,11 @@
     "macro_f1": 0.311,
     "brier": 0.596,
     "classes": 2
+   },
+   "WDCNN": {
+    "macro_f1": 0.363,
+    "brier": 0.95,
+    "classes": 3
    }
   }
  }
