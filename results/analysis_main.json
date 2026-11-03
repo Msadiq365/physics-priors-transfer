@@ -160,47 +160,117 @@
     0.7997713301750458
    ]
   },
-  "mean_of_learned": {
-   "mean_d": 0.20221688637640362,
-   "p_unadjusted": 0.103515625,
+  "M7": {
+   "mean_d": 0.04193291775446338,
+   "p_unadjusted": 0.75,
    "ci": [
-    -0.052957008241091286,
-    0.4403051892901926
+    -0.2797919904684978,
+    0.3621407972902124
+   ]
+  },
+  "mean_of_learned": {
+   "mean_d": 0.1793191765732693,
+   "p_unadjusted": 0.1484375,
+   "ci": [
+    -0.07856053444081157,
+    0.43049824822655736
    ]
   }
  },
  "table": {
   "CWRU2KAIST": {
+   "C0": {
+    "macro_f1": 0.886,
+    "brier": 0.231,
+    "classes": 3
+   },
    "M1": {
     "macro_f1": 0.2,
     "brier": 0.91,
     "classes": 1
+   },
+   "M2": {
+    "macro_f1": 0.675,
+    "brier": 0.494,
+    "classes": 3
    },
    "M3": {
     "macro_f1": 0.413,
     "brier": 0.508,
     "classes": 2
    },
+   "M4": {
+    "macro_f1": 0.095,
+    "brier": 0.955,
+    "classes": 2,
+    "controls": {
+     "pert-5": 0.083,
+     "pert-2": 0.083,
+     "pert+2": 0.378,
+     "pert+5": 0.083,
+     "random": [
+      0.083,
+      0.097,
+      0.3
+     ]
+    }
+   },
    "M5": {
     "macro_f1": 0.083,
     "brier": 0.929,
     "classes": 1
+   },
+   "M7": {
+    "macro_f1": 0.383,
+    "brier": 0.503,
+    "classes": 2
    }
   },
   "CWRU2PAD": {
+   "C0": {
+    "macro_f1": 0.535,
+    "brier": 0.801,
+    "classes": 3
+   },
    "M1": {
     "macro_f1": 0.167,
     "brier": 1.045,
     "classes": 1
+   },
+   "M2": {
+    "macro_f1": 0.291,
+    "brier": 0.796,
+    "classes": 2
    },
    "M3": {
     "macro_f1": 0.167,
     "brier": 0.948,
     "classes": 1
    },
+   "M4": {
+    "macro_f1": 0.14,
+    "brier": 0.733,
+    "classes": 1,
+    "controls": {
+     "pert-5": 0.14,
+     "pert-2": 0.14,
+     "pert+2": 0.14,
+     "pert+5": 0.14,
+     "random": [
+      0.14,
+      0.14,
+      0.14
+     ]
+    }
+   },
    "M5": {
     "macro_f1": 0.14,
     "brier": 0.795,
+    "classes": 1
+   },
+   "M7": {
+    "macro_f1": 0.167,
+    "brier": 0.93,
     "classes": 1
    }
   },
@@ -210,10 +280,20 @@
     "brier": 0.529,
     "classes": 3
    },
+   "M1": {
+    "macro_f1": 0.111,
+    "brier": 1.106,
+    "classes": 2
+   },
    "M2": {
     "macro_f1": 0.206,
     "brier": 0.768,
     "classes": 2
+   },
+   "M3": {
+    "macro_f1": 0.133,
+    "brier": 1.07,
+    "classes": 1
    },
    "M4": {
     "macro_f1": 0.222,
@@ -231,9 +311,254 @@
      ]
     }
    },
+   "M5": {
+    "macro_f1": 0.222,
+    "brier": 0.671,
+    "classes": 1
+   },
    "M7": {
     "macro_f1": 0.111,
     "brier": 1.091,
+    "classes": 2
+   }
+  },
+  "HUST_LOTO_6204": {
+   "C0": {
+    "macro_f1": 1.0,
+    "brier": 0.242,
+    "classes": 3
+   },
+   "M1": {
+    "macro_f1": 0.556,
+    "brier": 0.774,
+    "classes": 2
+   },
+   "M2": {
+    "macro_f1": 0.556,
+    "brier": 0.736,
+    "classes": 2
+   },
+   "M3": {
+    "macro_f1": 0.556,
+    "brier": 0.817,
+    "classes": 2
+   },
+   "M4": {
+    "macro_f1": 0.556,
+    "brier": 0.426,
+    "classes": 2,
+    "controls": {
+     "pert-5": 0.222,
+     "pert-2": 0.167,
+     "pert+2": 0.167,
+     "pert+5": 0.167,
+     "random": [
+      0.167,
+      0.189,
+      0.556
+     ]
+    }
+   },
+   "M5": {
+    "macro_f1": 0.556,
+    "brier": 0.73,
+    "classes": 2
+   },
+   "M7": {
+    "macro_f1": 0.556,
+    "brier": 0.801,
+    "classes": 2
+   }
+  },
+  "HUST_LOTO_6205": {
+   "C0": {
+    "macro_f1": 0.556,
+    "brier": 0.666,
+    "classes": 2
+   },
+   "M1": {
+    "macro_f1": 0.222,
+    "brier": 0.726,
+    "classes": 2
+   },
+   "M2": {
+    "macro_f1": 0.167,
+    "brier": 0.647,
+    "classes": 1
+   },
+   "M3": {
+    "macro_f1": 0.222,
+    "brier": 0.547,
+    "classes": 2
+   },
+   "M4": {
+    "macro_f1": 0.556,
+    "brier": 0.586,
+    "classes": 2,
+    "controls": {
+     "pert-5": 0.0,
+     "pert-2": 0.167,
+     "pert+2": 0.167,
+     "pert+5": 0.167,
+     "random": [
+      0.0,
+      0.233,
+      0.556
+     ]
+    }
+   },
+   "M5": {
+    "macro_f1": 0.222,
+    "brier": 0.62,
+    "classes": 2
+   },
+   "M7": {
+    "macro_f1": 0.556,
+    "brier": 0.548,
+    "classes": 2
+   }
+  },
+  "HUST_LOTO_6206": {
+   "C0": {
+    "macro_f1": 1.0,
+    "brier": 0.042,
+    "classes": 3
+   },
+   "M1": {
+    "macro_f1": 0.556,
+    "brier": 0.467,
+    "classes": 2
+   },
+   "M2": {
+    "macro_f1": 0.222,
+    "brier": 0.597,
+    "classes": 2
+   },
+   "M3": {
+    "macro_f1": 0.556,
+    "brier": 0.476,
+    "classes": 2
+   },
+   "M4": {
+    "macro_f1": 0.556,
+    "brier": 0.426,
+    "classes": 2,
+    "controls": {
+     "pert-5": 0.222,
+     "pert-2": 0.222,
+     "pert+2": 0.222,
+     "pert+5": 0.167,
+     "random": [
+      0.167,
+      0.294,
+      0.556
+     ]
+    }
+   },
+   "M5": {
+    "macro_f1": 0.167,
+    "brier": 0.496,
+    "classes": 1
+   },
+   "M7": {
+    "macro_f1": 0.556,
+    "brier": 0.434,
+    "classes": 2
+   }
+  },
+  "HUST_LOTO_6207": {
+   "C0": {
+    "macro_f1": 1.0,
+    "brier": 0.024,
+    "classes": 3
+   },
+   "M1": {
+    "macro_f1": 0.556,
+    "brier": 0.72,
+    "classes": 2
+   },
+   "M2": {
+    "macro_f1": 0.556,
+    "brier": 0.698,
+    "classes": 2
+   },
+   "M3": {
+    "macro_f1": 0.556,
+    "brier": 0.624,
+    "classes": 2
+   },
+   "M4": {
+    "macro_f1": 0.556,
+    "brier": 0.549,
+    "classes": 2,
+    "controls": {
+     "pert-5": 0.167,
+     "pert-2": 0.167,
+     "pert+2": 0.556,
+     "pert+5": 0.167,
+     "random": [
+      0.167,
+      0.194,
+      0.556
+     ]
+    }
+   },
+   "M5": {
+    "macro_f1": 0.222,
+    "brier": 0.712,
+    "classes": 2
+   },
+   "M7": {
+    "macro_f1": 0.167,
+    "brier": 0.669,
+    "classes": 1
+   }
+  },
+  "HUST_LOTO_6208": {
+   "C0": {
+    "macro_f1": 0.556,
+    "brier": 0.454,
+    "classes": 2
+   },
+   "M1": {
+    "macro_f1": 0.556,
+    "brier": 0.407,
+    "classes": 2
+   },
+   "M2": {
+    "macro_f1": 0.556,
+    "brier": 0.279,
+    "classes": 2
+   },
+   "M3": {
+    "macro_f1": 0.556,
+    "brier": 0.443,
+    "classes": 2
+   },
+   "M4": {
+    "macro_f1": 0.556,
+    "brier": 0.473,
+    "classes": 2,
+    "controls": {
+     "pert-5": 0.222,
+     "pert-2": 0.167,
+     "pert+2": 0.167,
+     "pert+5": 0.167,
+     "random": [
+      0.167,
+      0.278,
+      0.556
+     ]
+    }
+   },
+   "M5": {
+    "macro_f1": 0.556,
+    "brier": 0.398,
+    "classes": 2
+   },
+   "M7": {
+    "macro_f1": 0.556,
+    "brier": 0.345,
     "classes": 2
    }
   },
@@ -243,9 +568,19 @@
     "brier": 0.207,
     "classes": 3
    },
+   "M1": {
+    "macro_f1": 0.317,
+    "brier": 0.661,
+    "classes": 3
+   },
    "M2": {
     "macro_f1": 0.317,
     "brier": 0.867,
+    "classes": 3
+   },
+   "M3": {
+    "macro_f1": 0.317,
+    "brier": 0.894,
     "classes": 3
    },
    "M4": {
@@ -264,10 +599,207 @@
      ]
     }
    },
+   "M5": {
+    "macro_f1": 0.244,
+    "brier": 0.804,
+    "classes": 2
+   },
    "M7": {
     "macro_f1": 0.317,
     "brier": 0.872,
     "classes": 3
+   }
+  },
+  "KAIST2PAD": {
+   "C0": {
+    "macro_f1": 0.535,
+    "brier": 0.642,
+    "classes": 3
+   },
+   "M1": {
+    "macro_f1": 0.148,
+    "brier": 1.166,
+    "classes": 2
+   },
+   "M2": {
+    "macro_f1": 0.14,
+    "brier": 1.142,
+    "classes": 1
+   },
+   "M3": {
+    "macro_f1": 0.14,
+    "brier": 1.234,
+    "classes": 1
+   },
+   "M4": {
+    "macro_f1": 0.259,
+    "brier": 0.776,
+    "classes": 2,
+    "controls": {
+     "pert-5": 0.25,
+     "pert-2": 0.259,
+     "pert+2": 0.14,
+     "pert+5": 0.14,
+     "random": [
+      0.095,
+      0.16,
+      0.347
+     ]
+    }
+   },
+   "M5": {
+    "macro_f1": 0.14,
+    "brier": 0.893,
+    "classes": 1
+   },
+   "M7": {
+    "macro_f1": 0.14,
+    "brier": 1.302,
+    "classes": 1
+   }
+  },
+  "KAIST2UORED": {
+   "C0": {
+    "macro_f1": 0.483,
+    "brier": 0.948,
+    "classes": 3
+   },
+   "M1": {
+    "macro_f1": 0.341,
+    "brier": 0.715,
+    "classes": 2
+   },
+   "M2": {
+    "macro_f1": 0.222,
+    "brier": 0.792,
+    "classes": 1
+   },
+   "M3": {
+    "macro_f1": 0.341,
+    "brier": 0.777,
+    "classes": 2
+   },
+   "M4": {
+    "macro_f1": 0.23,
+    "brier": 0.677,
+    "classes": 2,
+    "controls": {
+     "pert-5": 0.341,
+     "pert-2": 0.33,
+     "pert+2": 0.341,
+     "pert+5": 0.341,
+     "random": [
+      0.087,
+      0.258,
+      0.389
+     ]
+    }
+   },
+   "M5": {
+    "macro_f1": 0.222,
+    "brier": 0.687,
+    "classes": 1
+   },
+   "M7": {
+    "macro_f1": 0.222,
+    "brier": 0.851,
+    "classes": 1
+   }
+  },
+  "PAD2CWRU": {
+   "C0": {
+    "macro_f1": 0.517,
+    "brier": 0.298,
+    "classes": 2
+   },
+   "M1": {
+    "macro_f1": 0.148,
+    "brier": 0.987,
+    "classes": 2
+   },
+   "M2": {
+    "macro_f1": 0.167,
+    "brier": 1.34,
+    "classes": 3
+   },
+   "M3": {
+    "macro_f1": 0.167,
+    "brier": 0.961,
+    "classes": 2
+   },
+   "M4": {
+    "macro_f1": 0.556,
+    "brier": 0.593,
+    "classes": 2,
+    "controls": {
+     "pert-5": 0.556,
+     "pert-2": 0.244,
+     "pert+2": 0.206,
+     "pert+5": 0.389,
+     "random": [
+      0.148,
+      0.227,
+      0.508
+     ]
+    }
+   },
+   "M5": {
+    "macro_f1": 0.383,
+    "brier": 0.481,
+    "classes": 2
+   },
+   "M7": {
+    "macro_f1": 0.452,
+    "brier": 0.84,
+    "classes": 2
+   }
+  },
+  "PAD2KAIST": {
+   "C0": {
+    "macro_f1": 0.886,
+    "brier": 0.327,
+    "classes": 3
+   },
+   "M1": {
+    "macro_f1": 0.2,
+    "brier": 0.963,
+    "classes": 1
+   },
+   "M2": {
+    "macro_f1": 0.19,
+    "brier": 1.066,
+    "classes": 2
+   },
+   "M3": {
+    "macro_f1": 0.25,
+    "brier": 0.874,
+    "classes": 2
+   },
+   "M4": {
+    "macro_f1": 0.333,
+    "brier": 0.962,
+    "classes": 3,
+    "controls": {
+     "pert-5": 0.4,
+     "pert-2": 0.452,
+     "pert+2": 0.5,
+     "pert+5": 0.467,
+     "random": [
+      0.133,
+      0.278,
+      0.556
+     ]
+    }
+   },
+   "M5": {
+    "macro_f1": 0.429,
+    "brier": 0.719,
+    "classes": 3
+   },
+   "M7": {
+    "macro_f1": 0.167,
+    "brier": 0.894,
+    "classes": 2
    }
   },
   "PAD2UORED": {
@@ -317,25 +849,157 @@
     "brier": 0.582,
     "classes": 3
    },
+   "M7": {
+    "macro_f1": 0.212,
+    "brier": 0.961,
+    "classes": 3
+   },
    "SHUFFLE_M2": {
     "macro_f1": 0.178
    }
   },
+  "UORED2CWRU": {
+   "C0": {
+    "macro_f1": 0.822,
+    "brier": 0.273,
+    "classes": 3
+   },
+   "M1": {
+    "macro_f1": 0.579,
+    "brier": 0.533,
+    "classes": 3
+   },
+   "M2": {
+    "macro_f1": 0.433,
+    "brier": 0.603,
+    "classes": 3
+   },
+   "M3": {
+    "macro_f1": 0.556,
+    "brier": 0.745,
+    "classes": 2
+   },
+   "M4": {
+    "macro_f1": 0.0,
+    "brier": 0.826,
+    "classes": 3,
+    "controls": {
+     "pert-5": 0.083,
+     "pert-2": 0.148,
+     "pert+2": 0.657,
+     "pert+5": 0.148,
+     "random": [
+      0.0,
+      0.152,
+      0.378
+     ]
+    }
+   },
+   "M5": {
+    "macro_f1": 0.244,
+    "brier": 0.798,
+    "classes": 2
+   },
+   "M7": {
+    "macro_f1": 0.389,
+    "brier": 0.85,
+    "classes": 2
+   }
+  },
+  "UORED2KAIST": {
+   "C0": {
+    "macro_f1": 0.886,
+    "brier": 0.245,
+    "classes": 3
+   },
+   "M1": {
+    "macro_f1": 0.2,
+    "brier": 0.914,
+    "classes": 1
+   },
+   "M2": {
+    "macro_f1": 0.429,
+    "brier": 0.97,
+    "classes": 3
+   },
+   "M3": {
+    "macro_f1": 0.083,
+    "brier": 0.973,
+    "classes": 2
+   },
+   "M4": {
+    "macro_f1": 0.467,
+    "brier": 0.438,
+    "classes": 3,
+    "controls": {
+     "pert-5": 0.167,
+     "pert-2": 0.222,
+     "pert+2": 0.0,
+     "pert+5": 0.222,
+     "random": [
+      0.0,
+      0.205,
+      0.556
+     ]
+    }
+   },
+   "M5": {
+    "macro_f1": 0.222,
+    "brier": 0.756,
+    "classes": 2
+   },
+   "M7": {
+    "macro_f1": 0.244,
+    "brier": 0.79,
+    "classes": 2
+   }
+  },
   "UORED2PAD": {
+   "C0": {
+    "macro_f1": 0.535,
+    "brier": 0.683,
+    "classes": 3
+   },
    "M1": {
     "macro_f1": 0.095,
     "brier": 0.797,
     "classes": 3
+   },
+   "M2": {
+    "macro_f1": 0.24,
+    "brier": 0.706,
+    "classes": 2
    },
    "M3": {
     "macro_f1": 0.315,
     "brier": 0.62,
     "classes": 3
    },
+   "M4": {
+    "macro_f1": 0.121,
+    "brier": 0.902,
+    "classes": 2,
+    "controls": {
+     "pert-5": 0.167,
+     "pert-2": 0.167,
+     "pert+2": 0.167,
+     "pert+5": 0.167,
+     "random": [
+      0.125,
+      0.253,
+      0.556
+     ]
+    }
+   },
    "M5": {
     "macro_f1": 0.222,
     "brier": 0.758,
     "classes": 2
+   },
+   "M6": {
+    "macro_f1": 0.405,
+    "brier": 0.586,
+    "classes": 3
    },
    "M7": {
     "macro_f1": 0.311,
