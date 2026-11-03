@@ -22,6 +22,7 @@ from .isolation import assert_isolated, grouped_folds
 CHK = [5, 10, 15, 20, 25, 30, 40, 50, 60]
 CWRU_FIXED_EPOCHS = 30
 SEEDS = range(5)
+DROPOUT_OVERRIDE = None
 
 # Healthy-reference pools: never trained on, never scored, by any arm (registered)
 POOL = {"PAD": lambda m: m["bearing_id"] in ("PAD_K005", "PAD_K006"),
@@ -61,6 +62,10 @@ def _fit(arm, R, y, seed, epochs, checkpoints=(), R_val=None):
         torch.manual_seed(seed); net = WDCNN()
     else:
         net = A.build(arm, None, seed=seed) if arm != "M4" else A.build(arm, {"BPFO": 1.0, "BPFI": 1.0}, seed=seed)
+    if DROPOUT_OVERRIDE is not None:                 # exploratory hyperparameter search only
+        for mod in net.modules():
+            if isinstance(mod, torch.nn.Dropout):
+                mod.p = DROPOUT_OVERRIDE
     torch.manual_seed(seed); rng = np.random.default_rng(seed)
     opt = torch.optim.Adam(net.parameters(), lr=Mo.LR, weight_decay=Mo.WD)
     c = np.bincount(y, minlength=3)

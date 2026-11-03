@@ -1,0 +1,9 @@
+[0] PAD2UORED M1: best {'lr': 0.002, 'wd': 0.0001, 'dropout': 0.1, 'cv_macro_f1': 0.8690476190476191, 'epochs': 50} -> target macro-F1 0.185 (2575s)
+[0] PAD2UORED M3: best {'lr': 0.001, 'wd': 0.0001, 'dropout': 0.5, 'cv_macro_f1': 0.8119658119658119, 'epochs': 20} -> target macro-F1 0.290 (1475s)
+[0] PAD2UORED M5: best {'lr': 0.0005, 'wd': 0.001, 'dropout': 0.5, 'cv_macro_f1': 0.8690476190476191, 'epochs': 15} -> target macro-F1 0.335 (3292s)
+[0] PAD2UORED M7: best {'lr': 0.001, 'wd': 0.001, 'dropout': 0.1, 'cv_macro_f1': 1.0, 'epochs': 50} -> target macro-F1 0.209 (1925s)
+[0] UORED2PAD M1: best {'lr': 0.002, 'wd': 0.001, 'dropout': 0.5, 'cv_macro_f1': 0.7114478114478114, 'epochs': 50} -> target macro-F1 0.167 (569s)
+[0] UORED2PAD M3: best {'lr': 0.001, 'wd': 0.0001, 'dropout': 0.1, 'cv_macro_f1': 0.7114478114478114, 'epochs': 50} -> target macro-F1 0.352 (344s)
+[0] UORED2PAD M5: best {'lr': 0.001, 'wd': 0.0001, 'dropout': 0.5, 'cv_macro_f1': 0.7633477633477633, 'epochs': 60} -> target macro-F1 0.259 (784s)
+[0] UORED2PAD M7: best {'lr': 0.0005, 'wd': 0.0001, 'dropout': 0.1, 'cv_macro_f1': 0.7645502645502645, 'epochs': 60} -> target macro-F1 0.315 (489s)
+[0] all done
