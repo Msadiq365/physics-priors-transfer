@@ -1,3 +1,6 @@
 __pycache__/
 *.npz
 runs/
+submission/Manuscript*
+submission/manuscript*
+submission/*.docx
