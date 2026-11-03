@@ -4,3 +4,4 @@ runs/
 submission/Manuscript*
 submission/manuscript*
 submission/*.docx
+data/*.npy
