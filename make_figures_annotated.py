@@ -78,7 +78,7 @@ for ax, d in zip(axes, ["CWRU", "PAD", "UORED", "KAIST", "HUST"]):
         note(ax, (0.38, 1.55), (1.15, 2.15), "cage (FTF), 0.38")
         note(ax, (6.0, 2.6), (7.3, ymax * 0.95), "inner race: shaft-order\nharmonics 1x to 6x")
     if d == "KAIST":
-        note(ax, (7.3, 3.0), (8.3, ymax * 0.93), "OR peaks 1 to 2% above\n2x and 3x BPFO (slip)")
+        note(ax, (7.3, 3.0), (8.3, ymax * 0.93), "OR peaks 1 to 2.3% above\nBPFO harmonics (slip)")
     if d == "HUST":
         note(ax, (5.4, 3.3), (6.6, ymax * 0.93), "healthy unit also peaks\nnear BPFI (5.4, 10.8)")
 axes[0].legend(loc="lower right", ncol=3, frameon=False, bbox_to_anchor=(1.0, 1.0))
