@@ -17,6 +17,6 @@ for x0, x1 in ((29.8, 35.4), (64.8, 70.4)):
 ax.text(85, 17.5, "Envelope baseline best or tied\nin 14 of 17 settings", ha="center", fontsize=7.8, color=ACC, fontweight="bold", va="center")
 ax.text(85, 12.2, "Physics priors: no gain", ha="center", fontsize=8.2, color=DARK)
 ax.text(85, 7.8, "Healthy shift between rigs:\nspectrum 0.64, prominence 0.27", ha="center", fontsize=7.4, color=DARK, va="bottom")
-ax.text(50, 1.5, "Envelope analysis versus physics-informed deep learning on unseen test rigs", ha="center", fontsize=8.5, style="italic", color=DARK)
+ax.text(50, 1.5, "Envelope analysis versus physics-guided deep networks on unseen test rigs", ha="center", fontsize=8.5, style="italic", color=DARK)
 fig.savefig("submission/Graphical_abstract.pdf"); fig.savefig("submission/Graphical_abstract.png", dpi=300)
 from PIL import Image; im = Image.open("submission/Graphical_abstract.png"); print(im.size)
