@@ -1,5 +1,5 @@
 """Smoke and physics checks on the small raw sample (development data only)."""
-import json, sys
+import json, os, sys
 import numpy as np
 sys.path.insert(0, '.')
 from ppt import signal as S, baseline as B
@@ -8,12 +8,13 @@ from ppt.loaders import cwru_manifest, pad_manifest
 from ppt.features import build_cache
 from ppt.isolation import assert_isolated, grouped_folds
 
-SUB = '/tmp/claude-0/-home-claude/4fbfedd7-5e16-5370-8fe9-e9214d6c4fe1/scratchpad/subset'
+SCR = os.environ.get('PPT_SCRATCH', 'scratch'); os.makedirs(SCR, exist_ok=True)
+SUB = os.environ.get('PPT_SUBSET', 'data/subset')
 man = cwru_manifest(SUB + '/CWRU') + pad_manifest(SUB + '/Paderborn', origins=('healthy', 'real', 'artificial'))
 print('recordings:', len(man), {d: sum(e['dataset'] == d for e in man) for d in ('CWRU', 'PAD')})
-info = build_cache(man, '/tmp/claude-0/-home-claude/4fbfedd7-5e16-5370-8fe9-e9214d6c4fe1/scratchpad/cache_subset.npz')
+info = build_cache(man, os.path.join(SCR, 'cache_subset.npz'))
 print('cache:', {k: v for k, v in info.items() if k != 'sha256'})
-z = np.load('/tmp/claude-0/-home-claude/4fbfedd7-5e16-5370-8fe9-e9214d6c4fe1/scratchpad/cache_subset.npz')
+z = np.load(os.path.join(SCR, 'cache_subset.npz'))
 meta = json.loads(str(z['meta'])); X = z['order']
 print('order grid bins', X.shape, 'hz bins', z['hz'].shape, 'step', S.ORDER_STEP)
 

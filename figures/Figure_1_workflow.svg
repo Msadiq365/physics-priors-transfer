@@ -85,8 +85,8 @@
 <text x="560" y="307" font-size="15" font-weight="normal" fill="#1A1A1A" text-anchor="start" >metric: per-bearing Brier score</text>
 <text x="560" y="332" font-size="15" font-weight="normal" fill="#1A1A1A" text-anchor="start" >test: exact sign-flip, Holm</text>
 <text x="560" y="357" font-size="15" font-weight="normal" fill="#1A1A1A" text-anchor="start" >quality gates G2 to G4</text>
-<text x="560" y="382" font-size="15" font-weight="normal" fill="#1A1A1A" text-anchor="start" >code: commit 331fdff</text>
-<text x="560" y="407" font-size="15" font-weight="normal" fill="#1A1A1A" text-anchor="start" >tag: prereg-freeze</text>
+<text x="560" y="382" font-size="15" font-weight="normal" fill="#1A1A1A" text-anchor="start" >code: commit 913154a</text>
+<text x="560" y="407" font-size="15" font-weight="normal" fill="#1A1A1A" text-anchor="start" >branch: prereg-freeze</text>
 <text x="560" y="432" font-size="15" font-weight="normal" fill="#1A1A1A" text-anchor="start" >data: SHA-256 checksums</text>
 <rect x="540" y="495" width="260" height="120" rx="10" fill="#FFFFFF" stroke="#2E7D32" stroke-width="2"/>
 <text x="670" y="527" font-size="18" font-weight="bold" fill="#1A1A1A" text-anchor="middle" >OSF registration</text>

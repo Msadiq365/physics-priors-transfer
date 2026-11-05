@@ -2,7 +2,7 @@
 
 Date: 3 November 2026. Author: Muawiya Sadiq.
 
-This update lists every departure from the frozen registration (freeze commit 331fdff, tag prereg-freeze). Each is logged with its time in DEV_LOG.md in the repository. Results under both the registered and the corrected procedure are reported in the paper.
+This update lists every departure from the frozen registration (freeze commit 331fdff as registered, now 913154a after a metadata-only history rewrite with an identical tree; see HISTORY_NOTE.md). Each is logged with its time in DEV_LOG.md in the repository. Results under both the registered and the corrected procedure are reported in the paper.
 
 ## 1. Deviation 1: UORED shaft speed
 

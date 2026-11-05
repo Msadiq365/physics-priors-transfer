@@ -3,7 +3,7 @@ import json, sys, os, numpy as np
 sys.path.insert(0, '.')
 from ppt import transfer as T, arms as A
 from ppt.loaders import sealed_manifest, load_sealed, refine_shaft_hz
-SCR = '/tmp/claude-0/-home-claude/4fbfedd7-5e16-5370-8fe9-e9214d6c4fe1/scratchpad'
+SCR = os.environ.get('PPT_SCRATCH', 'scratch'); os.makedirs(SCR, exist_ok=True)
 ok = True
 # 1. synthetic sealed-format file built from CWRU development signals, to test loaders and speed handling
 z = np.load('data/dev_raw.npz'); sig = z['CWRU__105__sig'].astype(np.float32)

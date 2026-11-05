@@ -26,3 +26,6 @@ f34cf27570832d2c5b55507098e48860c39a6056c69acb7e46cc8437d12bb8a7  tests/test_pip
 
 Software:
 Python 3.13.16 torch 2.14.1+cu130 numpy 2.5.3 scipy 1.18.1
+
+Note (2026-11-05): commit metadata was rewritten to the author name only. The freeze commit is now
+913154a with the identical tree c26089060fefbb8afe7588904e09f7c38bdf25bc. See HISTORY_NOTE.md.

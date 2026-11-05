@@ -3,7 +3,7 @@
 Code, registry, logs and results for the study "Physics priors and cross-rig transfer in bearing fault diagnosis:
 a bearing-isolated benchmark against envelope analysis" (M. Sadiq, Federal University of Technology Babura).
 
-Preregistration: https://osf.io/qsh2a (frozen at tag `prereg-freeze`, commit 331fdff; deviations in
+Preregistration: https://osf.io/qsh2a (frozen at branch `prereg-freeze`, commit 913154a, registered as 331fdff before a metadata-only history rewrite, see `HISTORY_NOTE.md`; deviations in
 `registration/OSF_update_deviations.md` and `DEV_LOG.md`).
 
 ## Data

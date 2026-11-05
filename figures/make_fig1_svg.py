@@ -1,5 +1,6 @@
 """Figure 1 (study workflow) as hand-built SVG. Text colour and border colour are deliberately distinct:
 text is near-black (#1A1A1A) or white on header bars; borders and arrows use stage colours."""
+import os
 W, H = 1600, 960
 TXT, SUB = "#1A1A1A", "#4A4A4A"
 STAGES = [  # (x, width, border colour, light fill, title, subtitle)
@@ -107,7 +108,7 @@ cx2 = 670
 check_shield(cx2 - 50, 160, c2); lock(cx2 + 50, 160, c2)
 box(540, 220, 260, 250, c2)
 text(cx2, 250, "Frozen before opening", 17, "bold")
-lines(560, 282, ["hypotheses H1 to H3", "metric: per-bearing Brier score", "test: exact sign-flip, Holm", "quality gates G2 to G4", "code: commit 331fdff", "tag: prereg-freeze", "data: SHA-256 checksums"], 15, 25, anchor="start")
+lines(560, 282, ["hypotheses H1 to H3", "metric: per-bearing Brier score", "test: exact sign-flip, Holm", "quality gates G2 to G4", "code: commit 913154a", "branch: prereg-freeze", "data: SHA-256 checksums"], 15, 25, anchor="start")
 box(540, 495, 260, 120, c2, "#FFFFFF")
 text(cx2, 527, "OSF registration", 18, "bold")
 text(cx2, 557, "osf.io/qsh2a", 18, "bold", c2)
@@ -168,5 +169,5 @@ for x1, x2, y in ((490, 520, 445), (820, 850, 445), (1190, 1220, 445)):
 box(20, 892, W - 40, 50, "#555555", "#F2F2F2", 10, 2)
 text(W / 2, 924, "Throughout: every physical bearing stays on one side of every split, and the code asserts this in every run.", 18, "bold")
 a('</svg>')
-open("/tmp/claude-0/-home-claude/4fbfedd7-5e16-5370-8fe9-e9214d6c4fe1/scratchpad/fig1/Figure_1_workflow.svg", "w").write("\n".join(out))
+open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "Figure_1_workflow.svg"), "w").write("\n".join(out))
 print("svg written")
