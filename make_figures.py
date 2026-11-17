@@ -1,10 +1,9 @@
-"""Publication figures (Elsevier single column 90 mm, double column 190 mm). Output: figures/FigN.pdf and .png (600 dpi)."""
+"""Publication figures (Elsevier single column 90 mm, double column 190 mm). Figures 2 to 7 and Table S1. Output: figures/FigN.pdf and .png (600 dpi). Figure 1 is figures/make_fig1_svg.py."""
 import json, os, sys, itertools
 import numpy as np
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyBboxPatch
 sys.path.insert(0, ".")
 from ppt import transfer as T, baseline as B, signal as S, stats as ST
 from ppt.data import load_cache
@@ -29,23 +28,6 @@ def save(fig, name):
 A = json.load(open("results/analysis_main.json"))
 AS = json.load(open("results/analysis_sens_stored.json"))
 cache = load_cache(); meta = cache["meta"]; X = cache["order"]
-
-# ---------------- Fig 1: study design ----------------
-fig, ax = plt.subplots(figsize=(190 * MM, 50 * MM)); ax.set_xlim(0, 100); ax.set_ylim(0, 27); ax.axis("off")
-def box(x, y, w, h, title, lines, fc="#f2f2f2", ec=DARK):
-    ax.add_patch(FancyBboxPatch((x, y), w, h, boxstyle="round,pad=0.3,rounding_size=0.8", fc=fc, ec=ec, lw=0.7))
-    ax.text(x + w / 2, y + h - 2.2, title, ha="center", va="top", fontsize=7.5, fontweight="bold", color=DARK)
-    ax.text(x + w / 2, y + h - 5.4, "\n".join(lines), ha="center", va="top", fontsize=6.1, color=DARK, linespacing=1.35)
-def arrow(x0, x1, y):
-    ax.annotate("", xy=(x1, y), xytext=(x0, y), arrowprops=dict(arrowstyle="-|>", lw=0.8, color=DARK))
-box(0.5, 4, 22, 21, "1. Development", ["CWRU and Paderborn only", "pipeline and recipe fixed", "gate G1 passed", "dry run of every arm", "MDD simulated"])
-box(26.5, 4, 22, 21, "2. Freeze and register", ["code tag prereg-freeze", "checksums of all data", "OSF registration", "osf.io/qsh2a", "2 November 2026"], fc="#e6eefb", ec=ACC)
-box(52.5, 4, 22, 21, "3. Open target data", ["UORED-VAFCLS, KAIST, HUST", "gates G2 to G4", "deviation D1:", "UORED shaft speed", "logged with its time"])
-box(78.5, 4, 21, 21, "4. Report", ["H1 to H3: PAD to UORED", "12 directed pairs", "HUST leave-one-type-out", "controls, sensitivity,", "exploratory WDCNN"])
-for x0, x1 in ((23.3, 26.2), (49.3, 52.2), (75.3, 78.2)):
-    arrow(x0, x1, 14.5)
-ax.text(50, 1.0, "Every physical bearing stays on one side of every split; the code asserts it in every run.", ha="center", fontsize=6.8, color=DARK, style="italic")
-save(fig, "Fig1_design")
 
 # ---------------- Fig 2: example envelope-order spectra ----------------
 fig, axes = plt.subplots(5, 1, figsize=(190 * MM, 150 * MM), sharex=True)
@@ -85,7 +67,7 @@ a2.set_title("(b) C0 prominence scores, unit means", loc="left")
 h1 = [plt.Line2D([], [], marker="o", ls="", color=DSC[d], label=DSN[d], ms=4) for d in DSC]
 h2 = [plt.Line2D([], [], marker=CLM[c], ls="", mfc="white" if c == "N" else DARK, mec=DARK, label={"N": "Healthy (open)", "IR": "Inner race", "OR": "Outer race"}[c], ms=4) for c in CLM]
 fig.legend(handles=h1 + h2, loc="lower center", ncol=8, frameon=False, bbox_to_anchor=(0.5, -0.03))
-fig.subplots_adjust(bottom=0.2, wspace=0.28); save(fig, "Fig3_crossrig")
+fig.subplots_adjust(bottom=0.2, wspace=0.28); save(fig, "Fig7_crossrig")
 
 # ---------------- Fig 4: confirmatory per-bearing differences ----------------
 fig, axes = plt.subplots(1, 3, figsize=(190 * MM, 62 * MM), sharey=True)
@@ -171,5 +153,5 @@ for v, col, txt in ((r[3], ACC, f"spectral estimate {r[3]:.1f} Hz"), (r[2], "#c0
     a2.text(v + 0.5, 0.95 if col == ACC else 0.8, txt, color=col, fontsize=6.5, va="top")
 a2.set_xlabel("Frequency (Hz); dotted lines: second harmonic"); a2.set_ylabel("Normalised amplitude")
 a2.set_title("(b) Recording O_7_2: raw vibration spectrum", loc="left")
-save(fig, "Fig7_uored_speed")
+save(fig, "Fig3_uored_speed")
 print("figures written:", sorted(os.listdir("figures")))

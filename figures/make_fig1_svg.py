@@ -169,5 +169,5 @@ for x1, x2, y in ((490, 520, 445), (820, 850, 445), (1190, 1220, 445)):
 box(20, 892, W - 40, 50, "#555555", "#F2F2F2", 10, 2)
 text(W / 2, 924, "Throughout: every physical bearing stays on one side of every split, and the code asserts this in every run.", 18, "bold")
 a('</svg>')
-open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "Figure_1_workflow.svg"), "w").write("\n".join(out))
+open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "Fig1_workflow.svg"), "w").write("\n".join(out))
 print("svg written")

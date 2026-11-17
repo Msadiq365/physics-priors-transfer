@@ -25,7 +25,8 @@ python3 run_sens_stored.py          # sensitivity: stored UORED speed
 python3 run_wdcnn.py 0 1            # exploratory WDCNN arm
 python3 tune_run.py 0 1             # exploratory per-arm tuning
 python3 analysis.py                 # confirmatory tests and tables (results/analysis_main.json)
-python3 make_figures.py             # Figures 1 to 7
+python3 figures/make_fig1_svg.py    # Figure 1 (workflow, SVG; PDF and PNG rendered from it)
+python3 make_figures.py             # Figures 2 to 7 and Table S1
 ```
 
 Python 3.13, torch 2.14, numpy 2.5, scipy 1.18; one thread per process (`TRAIN_THREADS=1`).
@@ -35,7 +36,8 @@ Python 3.13, torch 2.14, numpy 2.5, scipy 1.18; one thread per process (`TRAIN_T
 - `ppt/` pipeline: signal processing, arms M1 to M7, train-free baseline C0, WDCNN, isolation checks, training, statistics
 - `registry/geometry_registry.csv` bearing geometry with sources
 - `registration/` frozen registration, freeze record, deviation update
-- `results/`, `runs/tuned/` result files; `figures/`, `submission/` figures and supplementary table
+- `results/`, `runs/tuned/` result files
+- `figures/` Figures 1 to 7 (numbered as in the paper) and Supplementary Table S1
 - `DEV_LOG.md` dated log of every decision, before and after registration
 
 ## Licence
